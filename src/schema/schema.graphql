@@ -1,0 +1,96 @@
+"definimos la raiz"
+type Query  {
+    "lista para los usuarios registrados"
+    users: ResultUsers
+    "login para el inicio de sesion de usuarios"
+    login(email: String!, password: String!): ResultLogin
+    "autenticacion mediante token"
+    me: ResultUser
+}
+
+
+type Mutation{
+    register(user: UserInput!): ResultUser
+}
+
+"interface para definir las propiedades obligatorias en las respuestas"
+interface Result{
+    "estado actual de la operacion"
+    status: Boolean!
+    "mensaje de la operacion"
+    message: String!    
+}
+
+type ResultUsers implements Result{
+    "estado actual de la operacion"
+    status: Boolean!
+    "mensaje de la operacion"
+    message: String!  
+    "lista para los usuarios registrados"
+    users: [User!]! 
+}
+
+"""Mensaje de informacion para usuario ya existente"""
+type ResultUser implements Result{
+    "estado actual de la operacion"
+    status: Boolean!
+    "mensaje de la operacion"
+    message: String!  
+    "lista para los usuarios registrados"
+    user: User
+}
+
+type ResultLogin implements Result{
+    "estado actual de la operacion"
+    status: Boolean!
+    "mensaje de la operacion"
+    message: String!  
+    "información del token del usuario logueado"
+    token: String
+}
+
+
+"""
+User se toma en el query pero el "User" debera contener los siguientes datos del su tipo, emal, id, name, etc
+solo el ID se genera desde la base de datos
+"""
+
+type User{
+    id: ID!
+    "nombre"
+    name: String! 
+    "apellidos"
+    lastname: String!
+    "correo"
+    email: String!
+    "contraseña"
+    password: String!
+    "dia de registro tomada en la base de datos"
+    registerDate: String!
+    "fecha de nacimiento"
+    birthday: String!
+    "permisos del usuario"
+    role: Role!
+}
+"""
+input para añadir usuarios 
+"""
+input UserInput{
+    id: ID
+    "nombre"
+    name: String! 
+    "apellidos"
+    lastname: String!
+    "correo"
+    email: String!
+    "contraseña"
+    password: String!
+    "fecha de nacimiento"
+    birthday: String!
+    role: Role=CLIENT
+}
+
+enum Role{
+    CLIENT
+    ADMIN
+}
