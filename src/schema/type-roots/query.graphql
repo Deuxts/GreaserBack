@@ -1,0 +1,11 @@
+"definimos la raiz"
+type Query  {
+    "lista para los usuarios registrados"
+    users: ResultUsers
+    "login para el inicio de sesion de usuarios"
+    login(email: String!, password: String!): ResultLogin
+    "autenticacion mediante token"
+    me: ResultUser
+    "mostrar lista de productos"
+    products: Boolean
+}

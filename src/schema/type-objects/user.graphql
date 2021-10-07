@@ -1,0 +1,22 @@
+"""
+User se toma en el query pero el "User" debera contener los siguientes datos del su tipo, emal, id, name, etc
+solo el ID se genera desde la base de datos
+"""
+
+type User{
+    id: ID!
+    "nombre"
+    name: String! 
+    "apellidos"
+    lastname: String!
+    "correo"
+    email: String!
+    "contraseña"
+    password: String!
+    "dia de registro tomada en la base de datos"
+    registerDate: String!
+    "fecha de nacimiento"
+    birthday: String!
+    "permisos del usuario"
+    role: Role!
+}

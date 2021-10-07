@@ -1,0 +1,17 @@
+type ResultUsers implements Result{
+    "estado actual de la operacion"
+    status: Boolean!
+    "mensaje de la operacion"
+    message: String!  
+    "lista para los usuarios registrados"
+    users: [User!]! 
+}
+"""Mensaje de informacion para usuario ya existente"""
+type ResultUser implements Result{
+    "estado actual de la operacion"
+    status: Boolean!
+    "mensaje de la operacion"
+    message: String!  
+    "lista para los usuarios registrados"
+    user: User
+}

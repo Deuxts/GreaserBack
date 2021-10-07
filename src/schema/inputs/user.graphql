@@ -1,0 +1,17 @@
+"""
+input para añadir usuarios 
+"""
+input UserInput{
+    id: ID
+    "nombre"
+    name: String! 
+    "apellidos"
+    lastname: String!
+    "correo"
+    email: String!
+    "contraseña"
+    password: String!
+    "fecha de nacimiento"
+    birthday: String!
+    role: Role=CLIENT
+}
