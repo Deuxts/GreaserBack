@@ -1,0 +1,6 @@
+"en principio almacenara datos de estilos"
+type Genre implements Item {
+    id: ID!
+    name: String!
+    slug: String!
+}

@@ -8,4 +8,8 @@ type Query  {
     me: ResultUser
     "mostrar lista de productos"
     products: Boolean
+    "estilos"
+    genres: ResultGenre
+    "busqueda general"
+    genre(id:ID!): ResultGenre 
 }

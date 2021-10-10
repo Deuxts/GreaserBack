@@ -7,7 +7,8 @@ if (process.env.NODE_ENV !== 'production'){
 export const SECRET_KEY = process.env.SECRET || 'D3uxTsGr3as3r5tor3D4v1d4r145V1rg3n';
 
 export enum COLLECTIONS{
-    USERS='users'
+    USERS='users',
+    GENRES = 'genres'
 }
 
 export enum MESSAGES{
@@ -27,3 +28,4 @@ export enum EXPIRETIME{
     M20 = H1 / 3,
     D3 = H24 * 3,
 }
+

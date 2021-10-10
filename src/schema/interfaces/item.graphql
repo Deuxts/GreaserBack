@@ -1,0 +1,6 @@
+"item que conformara parte de los productos"
+interface Item {
+    id: ID!
+    name: String!
+    slug: String!
+}
