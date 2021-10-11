@@ -1,11 +1,11 @@
 export interface IUser{
-    id?: string;    
-    name: String;
-    lastname: String;
-    email: String;
-    password: String;
-    registerDate: String;
-    birthday: String;
-    role: String;
+    id?: string;
+    name: string;
+    lastname: string;
+    email: string;
+    password: string;
+    registerDate: string;
+    birthday: string;
+    role: string;
 }
 

@@ -83,7 +83,7 @@ class UsersService extends ResolversOperationsService {
       if (user === null) {
         return {
           status: false,
-          message: 'Usuario no definido, procura definirlo',
+          message: 'Usuario no cumple con los campos para el registro',
           user: null
         };
       }
@@ -129,7 +129,7 @@ class UsersService extends ResolversOperationsService {
       if (user === null) {
         return {
           status: false,
-          message: 'Usuario no definido, procura definirlo',
+          message: 'Usurio no identificado',
           user: null
         };
       }

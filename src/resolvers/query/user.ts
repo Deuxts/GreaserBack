@@ -15,7 +15,7 @@ const resolversUserQuery: IResolvers = {
       return new UsersService(_, { user: { email, password}}, context).login();
     },
     me(_, __, { token }) {
-      return new UsersService(_, __, token).auth();
+      return new UsersService(_, __, { token }).auth();
     }
   },
 };

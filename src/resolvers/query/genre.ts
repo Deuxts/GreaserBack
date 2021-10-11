@@ -2,20 +2,14 @@ import { IResolvers } from 'graphql-tools';
 import GenresService from '../../services/genre.service';
 
 const resolversGenreMutation: IResolvers = {
-    Mutation: {
-        addGenre(_, variables, context) {
-            // Añadimos la llamada al servicio
-            return new GenresService(_, variables, context).insert();
+    Query: {
+        async genres(_, __, { db }) {
+            return new GenresService(_, __, { db }).items();
         },
-        updateGenre(_, variables, context) {
-            // Añadimos la llamada al servicio
-            return new GenresService(_, variables, context).modify();
-        },
-        deleteGenre(_, variables, context) {
-            // Añadimos la llamada al servicio
-            return new GenresService(_, variables, context).delete();
-        },
-    },
+        async genre(_, { id }, { db }) {
+            return new GenresService(_, { id }, { db }).details();
+        }
+    }
 };
 
 export default resolversGenreMutation;
