@@ -11,7 +11,10 @@ const resolversGenreMation: IResolvers = {
         },
         deleteGenre(_, variables, context){
             return new GenreService(_,variables, context).delete();
-        }
+        },
+        blockGenre(_, variables, context) {
+            return new GenreService(_, variables, context).block();
+        },
     }
 };
 
