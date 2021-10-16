@@ -29,3 +29,8 @@ export enum EXPIRETIME{
     D3 = H24 * 3,
 }
 
+export enum ACTIVE_VALUES_ITEMS{
+    ALL = 'ALL',
+    INACTIVE = 'INACTIVE',
+    ACTIVE = 'ACTIVE'
+}

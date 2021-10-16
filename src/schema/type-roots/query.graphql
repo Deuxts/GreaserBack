@@ -1,7 +1,7 @@
 "definimos la raiz"
 type Query  {
     "lista para los usuarios registrados"
-    users (page: Int = 1, itemsPage: Int = 20): ResultUsers
+    users (page: Int = 1, itemsPage: Int = 20, active: ActiveFilterEnum = ACTIVE): ResultUsers
     "login para el inicio de sesion de usuarios"
     login(email: String!, password: String!): ResultLogin
     "autenticacion mediante token"

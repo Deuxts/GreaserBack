@@ -1,5 +1,5 @@
 import { findOneElement, asignDocumentId } from './../lib/db-operations';
-import { COLLECTIONS, EXPIRETIME, MESSAGES } from '../config/constants';
+import { ACTIVE_VALUES_ITEMS, COLLECTIONS, EXPIRETIME, MESSAGES } from '../config/constants';
 import { IContextData } from '../interfaces/context-data.interface';
 import ResolversOperationsService from './resolvers-operations.service';
 import bcrypt from 'bcrypt';
@@ -12,10 +12,19 @@ class UsersService extends ResolversOperationsService {
     }
 
     // Lista de usuarios
-    async items() {
+    async items(active: string = ACTIVE_VALUES_ITEMS.ACTIVE) {
+      console.log('servicio', active);
+      let filter: object = {active: {$ne: false}};
+      if (active === ACTIVE_VALUES_ITEMS.ALL) {
+        filter = {};
+      } else if (active === ACTIVE_VALUES_ITEMS.INACTIVE) {
+        filter = {active: false};
+      }else{
+        filter = {active: true};
+      }
       const page = this.getVariables().pagination?.page;
       const itemsPage = this.getVariables().pagination?.itemsPage;
-      const result = await this.list(this.collection, 'usuarios', page, itemsPage);
+      const result = await this.list(this.collection, 'usuarios', page, itemsPage, filter);
       return {
         info: result.info,
         status: result.status,
@@ -166,38 +175,39 @@ class UsersService extends ResolversOperationsService {
       };
     }
 
-    async unblock(unblock: boolean) {
+    async unblock(unblock: boolean, admin: boolean) {
       const id = this.getVariables().id;
       const user = this.getVariables().user;
       if (!this.checkData(String(id) || '')) {
           return {
               status: false,
-              message: 'El ID del Usuario no se ha especificado correctamente',
+              message: 'El ID del usuario no se ha especificado correctamente',
               genre: null
           };
       }
       if (user?.password === '1234') {
         return {
           status: false,
-          message: ' no se ha podido completar la operacion, pues la contraseña es 1234, cambie la contraseña'
+          message: 'En este caso no podemos activar porque no has cambiado el password que corresponde a "1234"'
         };
       }
       let update = {active: unblock};
-      if (unblock) {
-        update = Object.assign({},{active: true}, 
-          {birthday: user?.birthday, 
-            password: bcrypt.hashSync(user!.password, 10)});
+      if (unblock && !admin) {
+        console.log('Soy cliente y estoy cambiando la contraseña');
+        update = Object.assign({}, {active: true}, 
+          {
+            birthday: user?.birthday, 
+            password: bcrypt.hashSync(user?.password, 10)
+          });
       }
-      console.log(update);
-      const result = await this.update(this.collection, { id }, update, 'Usuario');
-      const action = (unblock) ? 'Desbloqueo' : 'Bloqueo';
+      const result = await this.update(this.collection, { id }, update, 'usuario');
+      const action = (unblock) ? 'Desbloqueado' : 'Bloqueado';
       return {
           status: result.status,
-          message: (result.status) ? `${action} correctamente` : `No se ha ${action.toLocaleLowerCase()} comprobarlo por favor`
+          message: (result.status) ? `${action} correctamente`: `No se ha ${action.toLowerCase()} comprobarlo por favor`
       };
-      
     }
-    
+  
     async active() {
       const id = this.getVariables().user?.id;
       const email = this.getVariables().user?.email || '';
@@ -219,6 +229,6 @@ class UsersService extends ResolversOperationsService {
     private checkData(value: string) {
       return (value === '' || value === undefined) ? false: true;
     }
-  }
+}
 
 export default UsersService;
