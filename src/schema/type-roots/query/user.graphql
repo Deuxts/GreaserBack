@@ -1,0 +1,15 @@
+"definimos la raiz"
+type Query  {
+    "lista para los usuarios registrados"
+    users (
+        "Pagina a la que accedemos al cargar"
+        page: Int = 1, 
+        "numero máximo de items que podra ver el usuario"
+        itemsPage: Int = 20, 
+        "propiedad para saber si el item esta activo"
+        active: ActiveFilterEnum = ACTIVE): ResultUsers
+    "login para el inicio de sesion de usuarios"
+    login(email: String!, password: String!): ResultLogin
+    "autenticacion mediante token"
+    me: ResultUser
+}

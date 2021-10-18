@@ -1,0 +1,9 @@
+type Product{
+    id: ID!
+    name: String!
+    slug: String!
+    img: String! 
+    clip: Clip
+    rating: Rating
+    screenshoot: [String]
+}

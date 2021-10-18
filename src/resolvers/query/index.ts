@@ -1,6 +1,6 @@
 import GMR from 'graphql-merge-resolvers';
 import resolversUserQuery from './user';
-import resolversProductsQuery from './product';
+import resolversProductsQuery from './shop-product';
 import resolversGenreQuery from './genre';
 
 const queryResolvers = GMR.merge([

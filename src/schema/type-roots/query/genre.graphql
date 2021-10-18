@@ -1,0 +1,10 @@
+type Query {
+    "estilos"
+    genres (
+        "Pagina a la que accedemos al cargar"
+        page: Int = 1, 
+        "numero máximo de items que podra ver el usuario"
+        itemsPage: Int = 20): ResultGenre
+    "busqueda general"
+    genre(id:ID!): ResultGenre 
+}
