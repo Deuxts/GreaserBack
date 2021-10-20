@@ -23,6 +23,7 @@ const resolversProductsQuery: IResolvers = {
     shopProductsOffersLast(_, { page, itemsPage, active, random, topPrice, lastUnits}, context) {
       let otherFilters = {};
       console.log(lastUnits);
+      console.log(page);
       console.log(topPrice);
       
       
@@ -44,7 +45,7 @@ const resolversProductsQuery: IResolvers = {
           pagination: { page, itemsPage },
         },
         context
-      ).items(active, '', random, otherFilters);
+      ).items(active, ['-1'], random, otherFilters);
     }
   },
 };

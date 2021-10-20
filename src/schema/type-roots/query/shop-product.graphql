@@ -13,8 +13,8 @@ type Query {
         itemsPage: Int = 20 
         "propiedad para saber si el item esta activo"
         active: ActiveFilterEnum = ACTIVE,
-        "ID de la categoria"
-        category: ID!,
+        "ID de la categoria, se prodra ver como una lista de diferentes ID en el caso donde se requiera agregar más de alguna categoria para la busqueda"
+        category: [ID!]!,
         "seleccion de elementos variados"
         random: Boolean = false): ResultShopProduct
     shopProductsOffersLast (
