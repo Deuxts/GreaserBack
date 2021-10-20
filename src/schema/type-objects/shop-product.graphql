@@ -8,4 +8,5 @@ type shopProduct {
     price: Float!
     stock: Int! 
     size: String
+    relationalProducts: [shopProduct]
 }

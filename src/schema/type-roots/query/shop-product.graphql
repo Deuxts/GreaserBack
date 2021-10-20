@@ -30,5 +30,6 @@ type Query {
         lastUnits: Int = -1,
         "Seleccionar los elementos de manera aleatoria"
         random: Boolean = false): ResultShopProduct    
-        
+        "detalles del producto seleccionado"
+    shopProductDetails(id: Int!): ResultShopProduct
 }
