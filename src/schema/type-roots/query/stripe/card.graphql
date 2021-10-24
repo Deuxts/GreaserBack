@@ -1,0 +1,13 @@
+type Query {
+    card(customer: ID!, card: ID!): ResultStripeCard
+    "Listado de las tarjetas de un cliente"
+    cards(
+        "Propietario de la tarjeta"
+        customer: ID!,
+        "limite de tarjetas a mostrar"
+        limit: Int = 5,
+        "contar a partir de X id"
+        startingAfter: ID = "",
+        "contar antes de X id"
+        endingBefore: ID = ""): ResultStripeCard
+} 

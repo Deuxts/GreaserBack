@@ -1,0 +1,11 @@
+type Mutation {
+    "creamos un token para la tarjeta"
+    createCardToken(card: CardInput): ResultStripeCard
+    "Tarjetas por cliente"
+    createCard(customer: ID!, tokenCard: String!): ResultStripeCard
+    ""
+    updateCard(customer: ID!, card: ID!, details: CardDetailsInput!): ResultStripeCard
+    ""
+    deleteCard(customer: ID!, card: ID!): ResultStripeCard
+    
+}

@@ -1,0 +1,14 @@
+type Query {
+    customers(
+        "Limite de cuantos usuarios se pueden cargar"
+        limit: Int = 5,
+        "para mostrar a partir de X usuario"
+        startingAfter: ID = "",
+        "muestra antes de X usuario"
+        endingBefore: ID = ""): ResultStripeCustomer
+    
+    "Detalles de un solo cliente"
+    customer(
+        "ID del cliente de Stripe"
+        id: ID!): ResultStripeCustomer
+}

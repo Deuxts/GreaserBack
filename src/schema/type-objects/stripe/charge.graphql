@@ -1,0 +1,21 @@
+type StripeCharge {
+    "id del pedido"
+    id: ID!
+    "precio del cargo"
+    amount: Float!
+    "estado del pedido"
+    status: String!
+    "email donde se envia el recibo"
+    receiptEmail: String!
+    "url del recibo"
+    receiptUrl: String!
+    "estado del pago"
+    paid: Boolean!
+    "pago creado"
+    created: String!
+    "tipo de orden"
+    typeOrder: String!
+    description: String!
+    card: ID!
+    customer: ID!
+}
