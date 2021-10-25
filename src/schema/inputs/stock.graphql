@@ -1,0 +1,5 @@
+input ShopProductStockInput {
+    "id del producto"
+    id: ID!
+    increment: Int!
+}

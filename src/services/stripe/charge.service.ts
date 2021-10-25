@@ -1,8 +1,7 @@
-
 import { Db } from 'mongodb';
 import { COLLECTIONS } from '../../config/constants';
 import { IStripeCard } from '../../interfaces/stripe/card.interface';
-import { IStripeCustomer } from '../../interfaces/stripe/customer.interface';
+import { IStripeCharge } from '../../interfaces/stripe/charge.interface';
 import { IPayment } from '../../interfaces/stripe/payment.interface';
 import { IUser } from '../../interfaces/user.interface';
 import { findOneElement } from '../../lib/db-operations';
@@ -63,6 +62,22 @@ class StripeChargeService extends StripeApi{
             };
         }).catch((error: Error) => this.getError(error));
     }   
+
+    async list(customer: string, limit: number, startingAfter:string, endingBefore:string){
+        const pagination = await this.paginator(startingAfter, endingBefore);
+        return this.execute(
+            STRIPE_OBJECTS.CHARGES,
+            STRIPE_ACTIONS.LIST,
+            {limit, customer, ...pagination}
+        ).then((result: {has_more: boolean, data: Array<IStripeCharge>}) => {
+            return {
+                status: true,
+                message: 'lista cargada con exito',
+                hasMore: result.has_more,
+                charges: result.data
+            };
+        }).catch((error:Error) => this.getError(error));
+    }
 
 }
 

@@ -1,0 +1,11 @@
+type Query {
+    chargesByCustomer(
+        "para seleccionar al cliente"
+        customer: ID!,
+        "Limite de cuantas transacciones se pueden cargar"
+        limit: Int = 5,
+        "para mostrar a partir de X transaccion"
+        startingAfter: ID = "",
+        "muestra antes de X transaccion"
+        endingBefore: ID = ""):ResultStripeCharge
+}

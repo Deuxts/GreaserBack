@@ -1,0 +1,4 @@
+type Mutation {
+    """ para actualizar la info de los productos, es decir decrementar el stock"""
+    updateStock(update: [ShopProductStockInput!]!): Boolean
+}
