@@ -1,7 +1,8 @@
-import { randomItems, UpdateStock } from './../lib/db-operations';
-import { COLLECTIONS, ACTIVE_VALUES_ITEMS } from '../config/constants';
+import { randomItems, UpdateStock, findOneElement } from './../lib/db-operations';
+import { COLLECTIONS, ACTIVE_VALUES_ITEMS, SUBSCRIPTIONS_EVENT, } from '../config/constants';
 import ResolversOperationsService from './resolvers-operations.service';
 import { IStock } from '../interfaces/stock.interface';
+import { PubSub } from 'apollo-server-express';
 
 class shopProductsService extends ResolversOperationsService {
     collection = COLLECTIONS.SHOP_PRODUCT;
@@ -74,20 +75,30 @@ class shopProductsService extends ResolversOperationsService {
 
     }
 
-    async updateStock(updateList: Array<IStock>){
+    async updateStock(updateList: Array<IStock>, pubsub: PubSub) {
         try {
             updateList.map(async(item: IStock) => {
                 console.log(item);
-                await UpdateStock(
-                    this.getDb(), 
-                    COLLECTIONS.SHOP_PRODUCT,
-                    {id: +item.id},
-                    {stock: item.increment}
+                const itemDetails = await findOneElement(
+                this.getDb(), COLLECTIONS.SHOP_PRODUCT,
+                { id: +item.id}
                 );
+                if(item.increment < 0 && ((item.increment + itemDetails.stock) < 0)) {
+                item.increment = -itemDetails.stock;
+                }
+                await UpdateStock(
+                this.getDb(),
+                COLLECTIONS.SHOP_PRODUCT,
+                {id: +item.id},
+                {stock: item.increment}
+                );
+                itemDetails.stock += item.increment; 
+                pubsub.publish(SUBSCRIPTIONS_EVENT.UPDATE_STOCK_PRODUCT, 
+                { selectProductStockUpdate: itemDetails});
             });
             return true;
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            console.log(e);
             return false;
         }
     }

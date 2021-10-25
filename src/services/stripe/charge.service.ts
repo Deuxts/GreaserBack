@@ -1,11 +1,14 @@
+import { PubSub } from 'apollo-server-express';
 import { Db } from 'mongodb';
 import { COLLECTIONS } from '../../config/constants';
+import { IStock } from '../../interfaces/stock.interface';
 import { IStripeCard } from '../../interfaces/stripe/card.interface';
 import { IStripeCharge } from '../../interfaces/stripe/charge.interface';
 import { IPayment } from '../../interfaces/stripe/payment.interface';
 import { IUser } from '../../interfaces/user.interface';
 import { findOneElement } from '../../lib/db-operations';
 import StripeApi, { STRIPE_ACTIONS, STRIPE_OBJECTS } from '../../lib/stripe-api';
+import shopProductsService from '../shop-product.service';
 import UsersService from '../users.service';
 import StripeCardService from './card.service';
 import StripeCostumerService from './customer.service';
@@ -16,7 +19,7 @@ class StripeChargeService extends StripeApi{
         return new StripeCostumerService().get(customer);
     }
     
-    async order(payment: IPayment){
+    async order(payment: IPayment, stockChange:Array<IStock>, db:Db, pubsub: PubSub){
         //verificar cliente
         const userData = await this.getClient(payment.customer);
         if (userData && userData.status) {
@@ -55,6 +58,7 @@ class StripeChargeService extends StripeApi{
             STRIPE_ACTIONS.CREATE,
             payment
         ).then((result: object) => {
+            new shopProductsService({},{}, {db}).updateStock(stockChange, pubsub);
             return{
                 status: true,
                 message: 'El pago se completo de forma exitosa',
