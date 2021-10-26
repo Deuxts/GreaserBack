@@ -28,6 +28,7 @@
   "dependencies": {
     "@graphql-tools/load-files": "^6.0.18",
     "@graphql-tools/merge": "^6.0.18",
+    "@types/bson": "4.2.0",
     "@wiicamp/graphql-merge-resolvers": "2.1.2",
     "apollo-server-express": "2.11.0",
     "bcrypt": "4.0.1",
@@ -61,7 +62,6 @@
     "@types/jsonwebtoken": "8.3.9",
     "@types/mongodb": "3.5.5",
     "@types/node": "13.11.0",
-    "@types/bson": "4.2.0",
     "@types/nodemailer": "6.4.0",
     "nodemon": "2.0.2",
     "ts-node": "8.8.2",
