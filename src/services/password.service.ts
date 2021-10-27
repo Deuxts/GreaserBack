@@ -35,7 +35,7 @@ class PasswordService extends ResolversOperationsService {
         };
         const token = new JWT().sign({user: newUser}, EXPIRETIME.M20);
         console.log(token);
-        const html = `<h1><a href="${process.env.CLIENT_URL}/#/reset/${token}">Para cambiar tú contraseña haz click aqui!</a></h1>`;
+        const html = `<h1><a href="http://greaser.netlify.app/#/reset/${token}">Para cambiar tú contraseña haz click aqui!</a></h1>`;
         const mail = {
             subject: 'Cambio de contraseña',
             to: email,
